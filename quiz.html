@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Educazione Civica</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #d4fc79, #96e6a1);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2f855a;
+        }
+        .question {
+            margin: 20px 0;
+        }
+        .options label {
+            display: block;
+            margin: 10px 0;
+            background: #f0fff4;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .options label:hover {
+            background: #c6f6d5;
+        }
+        .submit-btn {
+            display: block;
+            margin: 30px auto;
+            padding: 10px 20px;
+            font-size: 18px;
+            background: #2f855a;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background: #276749;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #e6fffa;
+            display: none;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz Educazione Civica</h1>
+        <form id="quizForm">
+            <!-- Domande del quiz -->
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "Cos'è l'idrogeno verde?", o: ["Un tipo di carburante fossile", "Idrogeno prodotto con energia rinnovabile", "Un nuovo metallo", "Un tipo di plastica"], a: 1 },
+            { q: "Cosa significa economia circolare?", o: ["Usare e gettare", "Riciclare e riutilizzare", "Comprare più spesso", "Produrre senza limiti"], a: 1 },
+            { q: "Cos'è l'intelligenza artificiale?", o: ["Una macchina che pensa come un umano", "Un videogioco", "Un robot giocattolo", "Un computer portatile"], a: 0 },
+            { q: "Cos'è l'agrivoltaico?", o: ["Una nuova malattia", "Un tipo di batteria", "Una combinazione di agricoltura e fotovoltaico", "Un impianto nucleare"], a: 2 },
+            { q: "Qual è il vantaggio dell'idrogeno verde?", o: ["Costa poco", "Non produce emissioni", "Si trova ovunque", "È radioattivo"], a: 1 },
+            { q: "L'economia circolare riduce:", o: ["La qualità dei prodotti", "I posti di lavoro", "L'inquinamento", "Le tasse"], a: 2 },
+            { q: "L'AI può essere usata per:", o: ["Pulire casa", "Gestire dati complessi", "Fare il caffè", "Andare in vacanza"], a: 1 },
+            { q: "Un pannello agrivoltaico:", o: ["Si mette in cucina", "Si usa per il riscaldamento dell'acqua", "Produce energia e ombra per le colture", "Serve per cucinare"], a: 2 },
+            { q: "L'AI è utile in quale settore?", o: ["Solo nello sport", "Ovunque", "Solo in medicina", "Solo nella scuola"], a: 1 },
+            { q: "Qual è una caratteristica dell’economia circolare?", o: ["Spreco", "Riutilizzo", "Monouso", "Incenerimento"], a: 1 }
+        ];
+
+        const form = document.getElementById('quizForm');
+        questions.forEach((q, i) => {
+            const div = document.createElement('div');
+            div.classList.add('question');
+            div.innerHTML = `<p><strong>Domanda ${i + 1}:</strong> ${q.q}</p>`;
+            const options = document.createElement('div');
+            options.classList.add('options');
+            q.o.forEach((opt, j) => {
+                const id = `q${i}_${j}`;
+                options.innerHTML += `<label><input type="radio" name="q${i}" value="${j}" required> ${opt}</label>`;
+            });
+            div.appendChild(options);
+            form.appendChild(div);
+        });
+
+        const submitBtn = document.createElement('button');
+        submitBtn.textContent = 'Invia Risposte';
+        submitBtn.classList.add('submit-btn');
+        submitBtn.type = 'submit';
+        form.appendChild(submitBtn);
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let score = 0;
+            let feedback = '';
+            questions.forEach((q, i) => {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected && parseInt(selected.value) === q.a) {
+                    score++;
+                    feedback += `<p class='correct'>Domanda ${i + 1}: Corretto!</p>`;
+                } else {
+                    feedback += `<p class='incorrect'>Domanda ${i + 1}: Sbagliato. Risposta corretta: ${q.o[q.a]}</p>`;
+                }
+            });
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<h2>Hai totalizzato ${score} su 10</h2>` + feedback;
+            resultDiv.style.display = 'block';
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+    </script>
+</body>
+</html>
