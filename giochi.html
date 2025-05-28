@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giochi Interattivi - Sostenibilità</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(to bottom right, #e8f5e9, #c8e6c9); margin: 0; padding: 0; }
+    header { background: #2e7d32; color: white; padding: 1rem; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .container { padding: 2rem; display: flex; flex-direction: column; gap: 2rem; }
+    h2 { color: #1b5e20; }
+    .game { background: white; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); padding: 1.5rem; }
+    .card, .bin, .option, .quiz-card, .decision { padding: 12px; margin: 10px; border: 2px dashed #ccc; border-radius: 6px; background: #f1f8e9; cursor: pointer; }
+    .bin { min-width: 120px; min-height: 60px; text-align: center; line-height: 40px; }
+    .highlight { border-color: #388e3c; background: #a5d6a7; }
+    .quiz-option { cursor: pointer; padding: 10px; border-radius: 8px; background: #c5e1a5; transition: 0.3s; }
+    .quiz-option:hover { background: #aed581; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌱 Giochi Interattivi - Sostenibilità e Fonti Energetiche</h1>
+  </header>
+  <div class="container">
+
+    <!-- Gioco 1: Smista i Rifiuti -->
+    <div class="game" id="smistaRifiuti">
+      <h2>♻️ Smista i Rifiuti</h2>
+      <div id="rifiuti">
+        <div class="card" draggable="true" data-type="plastica">Bottiglia di plastica</div>
+        <div class="card" draggable="true" data-type="vetro">Barattolo di vetro</div>
+        <div class="card" draggable="true" data-type="organico">Bucce di banana</div>
+        <div class="card" draggable="true" data-type="carta">Giornale</div>
+      </div>
+      <div id="bidoni">
+        <div class="bin" data-type="plastica">🟡 Plastica</div>
+        <div class="bin" data-type="vetro">🟢 Vetro</div>
+        <div class="bin" data-type="organico">🟤 Organico</div>
+        <div class="bin" data-type="carta">🔵 Carta</div>
+      </div>
+    </div>
+
+    <!-- Gioco 2: Quiz Energia -->
+    <div class="game" id="quizEnergia">
+      <h2>🧠 Quiz sull’Energia Sostenibile</h2>
+      <div class="quiz-card">
+        Quale di queste è una fonte di energia rinnovabile?
+        <div class="quiz-option" data-correct="true">Energia Solare</div>
+        <div class="quiz-option">Carbone</div>
+        <div class="quiz-option">Petrolio</div>
+      </div>
+      <div class="quiz-card">
+        Quale tecnologia utilizza l’acqua per generare energia?
+        <div class="quiz-option">Pannelli Solari</div>
+        <div class="quiz-option">Turbina Eolica</div>
+        <div class="quiz-option" data-correct="true">Centrale Idroelettrica</div>
+      </div>
+    </div>
+
+    <!-- Gioco 3: Simulazione Scelte Energetiche -->
+    <div class="game" id="simulazioneScelte">
+      <h2>🔌 Simulatore: Scelte Energetiche Nazionali</h2>
+      <p>Gestisci le scelte energetiche di un paese e osserva gli impatti ambientali, economici e sociali.</p>
+      <div class="decision" data-impact="green">Investi nel solare e nell’eolico</div>
+      <div class="decision" data-impact="mixed">Costruisci centrali a gas naturale</div>
+      <div class="decision" data-impact="bad">Espandi centrali a carbone</div>
+      <div id="resultSimulazione"></div>
+    </div>
+
+    <!-- Gioco 4: Costruisci la Città Sostenibile -->
+    <div class="game" id="cittaSostenibile">
+      <h2>🏙️ Costruisci la Città Sostenibile</h2>
+      <p>Scegli tra edifici, impianti e mezzi di trasporto. Ogni scelta influenza ambiente, salute e bilancio!</p>
+      <div class="decision" data-score="3">Parco fotovoltaico</div>
+      <div class="decision" data-score="2">Tram elettrici</div>
+      <div class="decision" data-score="-2">Strade a combustibili fossili</div>
+      <div id="cityScore"></div>
+    </div>
+
+  </div>
+
+  <script>
+    // Smista Rifiuti
+    document.querySelectorAll('[draggable="true"]').forEach(el => {
+      el.addEventListener('dragstart', e => e.dataTransfer.setData("text/plain", el.dataset.type));
+    });
+    document.querySelectorAll('.bin').forEach(bin => {
+      bin.addEventListener('dragover', e => { e.preventDefault(); bin.classList.add("highlight"); });
+      bin.addEventListener('dragleave', () => bin.classList.remove("highlight"));
+      bin.addEventListener('drop', e => {
+        e.preventDefault();
+        const type = e.dataTransfer.getData("text/plain");
+        alert(type === bin.dataset.type ? "✅ Corretto!" : "❌ Sbagliato!");
+        bin.classList.remove("highlight");
+      });
+    });
+
+    // Quiz Energia
+    document.querySelectorAll('.quiz-option').forEach(option => {
+      option.addEventListener('click', () => {
+        option.style.background = option.dataset.correct === "true" ? '#a5d6a7' : '#ef9a9a';
+        alert(option.dataset.correct === "true" ? "Bravo! ✅" : "Ops! ❌");
+      });
+    });
+
+    // Simulatore Scelte Energetiche
+    const resultSim = document.getElementById("resultSimulazione");
+    document.querySelectorAll('#simulazioneScelte .decision').forEach(opt => {
+      opt.addEventListener('click', () => {
+        const impact = opt.dataset.impact;
+        let msg = '';
+        if (impact === 'green') msg = "🌿 Ottima scelta! Emissioni ridotte e incentivi verdi.";
+        else if (impact === 'mixed') msg = "⚖️ Soluzione temporanea. Buon compromesso, ma serve evoluzione.";
+        else msg = "☠️ Scelta dannosa. Alta emissione e scarsa sostenibilità.";
+        resultSim.innerText = msg;
+      });
+    });
+
+    // Città Sostenibile
+    const scoreBox = document.getElementById("cityScore");
+    let score = 0;
+    document.querySelectorAll('#cittaSostenibile .decision').forEach(opt => {
+      opt.addEventListener('click', () => {
+        score += parseInt(opt.dataset.score);
+        scoreBox.innerText = `🌎 Punteggio di sostenibilità: ${score}`;
+      });
+    });
+  </script>
+</body>
+</html>
