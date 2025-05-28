@@ -40,62 +40,321 @@
     header h1 {
       color: #fff;
       font-weight: 900;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
+    }
+    nav {
+      position: relative;
+    }
+    .menu-toggle {
+      width: 30px;
+      height: 24px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .menu-toggle span {
+      display: block;
+      height: 4px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .dropdown {
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-20px);
+      transition: all 0.4s ease;
+      min-width: 200px;
+    }
+    .dropdown.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .dropdown a {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      color: #14532d;
+      transition: background 0.2s;
+    }
+    .dropdown a:hover {
+      background: #e6f4ea;
     }
 
-    /* MAIN CONTENT */
-    main {
-      margin-top: 100px;
+    /* HERO SECTION */
+    .hero {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      color: #1b1b1b;
+      background: #e8f5e9;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      animation: fadeInDown 1.2s ease-out;
+      max-width: 700px;
+      width: 90%;
+      height: 60vh;
+      padding: 1.5rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      line-height: 1.6;
+      overflow-y: auto;
+    }
+    .hero-content h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #14532d;
+      text-align: center;
+    }
+    .hero-content p,
+    .hero-content ul {
+      margin-top: 1rem;
+    }
+    .hero-content ul {
+      list-style: disc;
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .hero-content ul ul {
+      list-style: circle;
+    }
+    .hero-content strong {
+      color: #14532d;
+    }
+
+    /* FEATURES */
+    .features {
+      padding: 4rem 2rem;
+      background: #fff;
+      clip-path: polygon(0 10vh, 100% 0, 100% 100%, 0% 100%);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .feature {
+      background: #f3f5f7;
       padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      font-size: 1.8rem;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      gap: 1rem;
     }
-
-    .button {
-      background-color: #14532d;
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 10px;
-      margin: 1rem;
-      font-weight: 500;
-      transition: background-color 0.3s ease;
+    .feature:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
     }
-
-    .button:hover {
-      background-color: #1e6b3d;
-    }
-
-    /* QUIZ BUTTON - DIVERSO DAGLI ALTRI */
-    .quiz-button {
-      background-color: #d97706;
-      color: #fff;
+    .feature h3 {
+      font-size: 1.4rem;
       font-weight: 700;
-      padding: 1.2rem 2.5rem;
-      border-radius: 15px;
-      margin-top: 2rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      transition: transform 0.2s, background-color 0.3s;
+      margin-bottom: 0.5rem;
+      color: #14532d;
+    }
+    .feature p {
+      color: #444;
+      line-height: 1.4;
+      font-size: 1rem;
+    }
+    .feature-link {
+      display: block;
     }
 
-    .quiz-button:hover {
-      background-color: #b45309;
-      transform: scale(1.05);
+    /* CTA PANEL */
+    .cta-panel {
+      background: #14532d;
+      color: #fff;
+      padding: 3rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+    .cta-panel h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .cta-panel button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #14532d;
+      background: #e6f4ea;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .cta-panel button:hover {
+      background: #fff;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* FOOTER */
+    footer {
+      background: #14532d;
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .hero-content {
+        padding: 1rem;
+        margin: 1rem;
+      }
+      .hero-content h2 {
+        font-size: 1.6rem;
+      }
+      .hero-content p,
+      .hero-content ul {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>EcoFuturo 🌱</h1>
+    <h1>EcoFuturo</h1>
+    <nav>
+      <div class="menu-toggle" onclick="toggleMenu(this)">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="dropdown" id="navbar">
+        <a href="index.html">Home</a>
+        <a href="agrivoltaico.html">Agrivoltaico</a>
+        <a href="idrogeno.html">Idrogeno Verde</a>
+        <a href="ai.html">Smart Grid & IA</a>
+        <a href="circolare.html">Economia Circolare</a>
+      </div>
+    </nav>
   </header>
-  <main>
-    <a href="agrivoltaico.html" class="button">Agrivoltaico</a>
-    <a href="ai.html" class="button">Intelligenza Artificiale</a>
-    <a href="circolare.html" class="button">Economia Circolare</a>
-    <a href="idrogeno.html" class="button">Idrogeno Verde</a>
 
-    <!-- Nuovo Bottone per il Quiz -->
-    <a href="quiz.html" class="quiz-button">🎯 Metti alla prova le tue conoscenze!</a>
-  </main>
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Energia e sostenibilità: la sfida del nostro secolo</h2>
+      <p>
+        L’energia è alla base di ogni attività umana: alimenta le case, i trasporti, le industrie e i dispositivi digitali che usiamo ogni giorno. Ma da dove proviene questa energia? E soprattutto, quali sono le conseguenze del modo in cui la produciamo?
+      </p>
+      <p>🌍 Le fonti energetiche: una classificazione</p>
+      <ul>
+        <li>
+          <strong>Fonti non rinnovabili:</strong>
+          <ul>
+            <li>Derivano da risorse finite, come carbone, petrolio, gas naturale e uranio.</li>
+            <li>Sono responsabili di oltre il 70% delle emissioni globali di gas serra.</li>
+            <li>Oltre a generare inquinamento atmosferico, comportano spesso danni ambientali legati all’estrazione e ai trasporti.</li>
+            <li>Il loro esaurimento è una minaccia concreta nel medio-lungo periodo.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Fonti rinnovabili:</strong>
+          <ul>
+            <li>Comprendono solare, eolico, idroelettrico, geotermico, biomasse e energia marina.</li>
+            <li>Sono pressoché inesauribili e non generano emissioni durante la produzione.</li>
+            <li>Tuttavia, pongono nuove sfide legate all’intermittenza, all’accumulo e alla gestione intelligente delle reti.</li>
+          </ul>
+        </li>
+      </ul>
+      <p>♻️ Il concetto di sostenibilità energetica: un equilibrio tra produzione, consumo e tutela dell’ambiente.</p>
+    </div>
+  </section>
+
+  <section class="features">
+    <a href="agrivoltaico.html" class="feature-link">
+      <div class="feature" style="--delay:.1s; animation:fadeInDown .8s ease-out var(--delay) both;">
+        <div>🌞</div>
+        <h3>Agrivoltaico</h3>
+        <p>La combinazione di agricoltura e energia solare.</p>
+      </div>
+    </a>
+
+    <a href="idrogeno.html" class="feature-link">
+      <div class="feature" style="--delay:.3s; animation:fadeInDown .8s ease-out var(--delay) both;">
+        <div>🛢️</div>
+        <h3>Idrogeno Verde</h3>
+        <p>Il vettore energetico del futuro.</p>
+      </div>
+    </a>
+
+    <a href="ai.html" class="feature-link">
+      <div class="feature" style="--delay:.5s; animation:fadeInDown .8s ease-out var(--delay) both;">
+        <div>🤖</div>
+        <h3>Smart Grid & IA</h3>
+        <p>La gestione intelligente delle reti energetiche.</p>
+      </div>
+    </a>
+
+    <a href="circolare.html" class="feature-link">
+      <div class="feature" style="--delay:.7s; animation:fadeInDown .8s ease-out var(--delay) both;">
+        <div>♻️</div>
+        <h3>Economia Circolare</h3>
+        <p>Il riuso e riciclo per un futuro sostenibile.</p>
+      </div>
+    </a>
+  </section>
+
+
+
+  <footer>
+    &copy; 2025 EcoFuturo. 5Bi: Gismondi, Caratelli, Leonardi e Andreoli.
+  </footer>
+
+  <script>
+    function toggleMenu(elem) {
+      elem.classList.toggle("active");
+      document.getElementById("navbar").classList.toggle("show");
+    }
+  </script>
+
+<div style="text-align: center; margin-top: 50px;">
+    <a href="quiz.html" style="
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        background-color: #2f855a;
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease;
+    " onmouseover="this.style.backgroundColor='#276749'" onmouseout="this.style.backgroundColor='#2f855a'">
+        Vai al Quiz Finale
+    </a>
+</div>
+
 </body>
 </html>
